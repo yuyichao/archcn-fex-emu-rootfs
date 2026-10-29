@@ -36,6 +36,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" out/default.erofs.xz out/pkglist.txt \
+          gh release create "$GITHUB_REF_NAME" out/default.erofs.zst out/pkglist.txt \
             --repo "$GITHUB_REPOSITORY" --verify-tag --title "$GITHUB_REF_NAME" \
             --notes "Arch Linux x86_64 rootfs for FEX-Emu, built on $(date -u +%F)."

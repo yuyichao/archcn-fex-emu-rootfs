@@ -1,5 +1,5 @@
 /work/
 /out/
 *.erofs
-*.erofs.xz
+*.erofs.zst
 *.log

@@ -26,8 +26,9 @@ pacman-key --init
 pacman-key --populate archlinux
 pacman-key --lsign-key farseerfc@archlinux.org
 pacman -Sy --noconfirm archlinux-keyring
-pacman -Su --noconfirm --needed archlinuxcn-keyring arch-install-scripts erofs-utils xz
+pacman -Su --noconfirm --needed archlinuxcn-keyring arch-install-scripts erofs-utils zstd
 
 ./build.sh
 
-xz -T0 out/default.erofs
+# --long=27 stays within the default window limit for decompression
+zstd -T0 -19 --long=27 --rm out/default.erofs

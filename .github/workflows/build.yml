@@ -26,7 +26,7 @@ jobs:
         with:
           name: rootfs
           path: |
-            out/default.erofs.xz
+            out/default.erofs.zst
             out/pkglist.txt
           compression-level: 0
           if-no-files-found: error
