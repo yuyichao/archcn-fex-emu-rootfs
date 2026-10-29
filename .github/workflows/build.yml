@@ -1,0 +1,31 @@
+name: Build rootfs
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache
+          sudo docker image prune -af
+          df -h
+
+      # pacstrap needs to mount filesystems in the chroot
+      - name: Build
+        run: docker run --rm --privileged -v "$PWD:/src" -w /src archlinux:latest ci/docker-build.sh
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: rootfs
+          path: |
+            out/default.erofs.xz
+            out/pkglist.txt
+          compression-level: 0
+          if-no-files-found: error
